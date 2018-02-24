@@ -6,6 +6,7 @@ Vue.use(Router)
 const Home = () => import('@/components/Home/Home')
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
