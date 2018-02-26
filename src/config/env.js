@@ -3,7 +3,7 @@ import { convertBlogArticle } from '@/common/js/util'
 const BASEURL = 'https://api.github.com'
 const NAME = 'zagss.github.io'
 const OWNER = 'zagss'
-const ACCESS_TOKEN = '173519ec91b171f2eb88542c06de364590fff748'
+const ACCESS_TOKEN = '18b96781f4c469ea0f75265e586bca9ded21b598'
 
 export const GitConfig = {
   BASEURL,
