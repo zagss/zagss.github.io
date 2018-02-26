@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import { articleRepos } from '@/config/env'
 
 Vue.use(Router)
 
@@ -22,12 +23,18 @@ export default new Router({
         {
           path: '',
           name: BlogArticles.name,
-          component: BlogArticles
+          component: BlogArticles,
+          meta: {
+            repository: articleRepos[0]
+          }
         },
         {
           path: ':number',
-          name: Article.name,
-          component: Article
+          name: `${articleRepos[0].key}-${Article.name}`,
+          component: Article,
+          meta: {
+            repository: articleRepos[0]
+          }
         }
       ]
     }

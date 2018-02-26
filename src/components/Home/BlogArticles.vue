@@ -9,22 +9,27 @@
     <div class="container">
       <div class="article-box">
         <ul class="article-list fl">
-          <li class="article-item">
-            <h2 class="article-title">饿了么的 PWA 升级实践</h2>
-            <p class="article-content nowrap-4">
-        最近在一直在为面试做准备，搜了很多大佬记录的面试经验和面试内容，对自己不太熟悉和已经记忆模糊的知识点内容进行复习巩固，争取能够有一个好的状态。这篇文章以我的经验讲述了我是如何从源码的角度了解到 webpack 插件机制，也简单描述了 webpack 编译构建的机制。</p>
+          <router-link 
+            :to="`${article.number}`"
+            tag="li"
+            class="article-item"
+            v-for="article of articles"
+            :key="article.id"
+            append>
+            <h2 class="article-title">{{ article.title }}</h2>
+            <div class="article-content nowrap-4" v-html="article.summary"></div>
             <div class="article-meta">
               <i class="author">Posted by Kael</i>
               <div class="mark">
                 <i class="fa fa-calendar" aria-hidden="true"></i>
-                <span>2017-03-10</span>
+                <span>{{ article.createdAt }}</span>
                 <i class="fa fa-commenting" aria-hidden="true"></i>
-                <span>22</span>
+                <span>{{ article.comments }}</span>
                 <i class="fa fa-tag" aria-hidden="true"></i>
-                <span>生活</span>
+                <span v-for="label of article.labels" :key="label.id" :style="{ color: `#${label.color}` }">{{ label.name }}</span>
               </div>
             </div>
-          </li>
+          </router-link>
         </ul>
         <my-sidebar></my-sidebar>
       </div>
@@ -34,16 +39,35 @@
 
 <script>
 import MySidebar from '@/components/MySidebar/MySidebar'
+import { getArticles } from '@/api/fetch'
 
 export default {
   name: 'Blog-Articles',
   components: {
     MySidebar
+  },
+  data () {
+    return {
+      articles: []
+    }
+  },
+  methods: {
+    async handleLoadArticles () {
+      const { resolveArticle, key: repoKey, name: repoName } = this.$route.meta.repository
+      let res = await getArticles(repoName)
+      this.articles = [...this.articles, ...res.map(resolveArticle)]
+      this.$store.commit('updateSpecifyArticles', { key: repoKey, articles: this.articles })
+    }
+  },
+  created () {
+    this.handleLoadArticles()
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import '~@/common/scss/const.scss';
+
 .intro {
   background: url('../../common/img/home-bg.jpg') no-repeat center center;
   background-size: cover;
@@ -68,8 +92,13 @@ export default {
     text-align: left;
     .article-list {
         flex: 3;
+        padding: 0 15px;
         .article-item {
             border-bottom: 1px solid #eee;
+            cursor: pointer;
+            &:hover {
+              color: $color-text-hover
+            }
         }
     }
     .side-bar {
@@ -86,6 +115,9 @@ export default {
         font-size: 13px;
         color: #a3a3a3;
         line-height: 1.7;
+        &:hover {
+          color: $color-text-hover
+        }
     }
 }
 
