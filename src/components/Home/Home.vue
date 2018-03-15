@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <transition name="fade" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" mode="out-in">
-      <keep-alive>
+      <keep-alive :include="keepAliveComps">
         <router-view/>
       </keep-alive>
     </transition>
@@ -10,7 +10,12 @@
 
 <script>
 export default {
-  name: 'Home'
+  name: 'Home',
+  data () {
+    return {
+      keepAliveComps: ['Blog-Articles']
+    }
+  }
 }
 </script>
 

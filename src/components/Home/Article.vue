@@ -17,6 +17,7 @@ export default {
   methods: {
     findArticleByNumber () {
       const num = parseInt(this.$route.params.number)
+      console.log(num)
       if (this.$store.state.articles.length) {
         return this.$store.state.articles[this.$route.meta.repository.key].find(({ number }) => number === num)
       }

@@ -5,8 +5,8 @@ import { articleRepos } from '@/config/env'
 Vue.use(Vuex)
 
 const articles = {}
-articleRepos.forEach(key => {
-  articles[key] = []
+articleRepos.forEach(item => {
+  articles[item.key] = []
 })
 
 export default new Vuex.Store({

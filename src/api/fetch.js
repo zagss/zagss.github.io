@@ -2,12 +2,12 @@ import fetch from './service'
 import { GitConfig } from '@/config/env'
 
 // 获取github issues
-export const getArticles = (name) => fetch({
+export const getArticles = (name, page = 1, size = 10) => fetch({
   type: 'get',
   url: `/repos/${GitConfig.OWNER}/${name}/issues`,
   data: {
-    page: 1,
-    per_page: 5,
+    page: page,
+    per_page: size,
     filter: 'created'
   }
 })
