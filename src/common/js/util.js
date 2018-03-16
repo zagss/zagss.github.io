@@ -8,11 +8,15 @@ export const convertBlogArticle = function (article) {
 //   const thumb = banner.replace(/(750|1024\*1024)$/, '256')
   const body = splitBanner[2]
 
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+  const createdAtEn = new Date(article.created_at).toLocaleDateString('en-US', options)
+
   return Object.assign(article, {
     body,
     summary,
     // thumb,
     // banner,
-    createdAt: article.created_at.split('T')[0]
+    createdAt: article.created_at.split('T')[0],
+    createdAtEn: createdAtEn
   })
 }

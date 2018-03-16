@@ -130,9 +130,6 @@ export default {
     justify-content: space-between;
     align-items: center;
     line-height: 1.7;
-    .author {
-        font-family: Lora,'Times New Roman',serif;
-    }
     .mark {
         font-size: 14px;
         i {
