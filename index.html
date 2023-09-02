@@ -16,61 +16,66 @@
         font-family: "Haku";
         src: url("../res/Haku.ttf");
     }
-    </style>
-    
-    <script type="text/javascript">
-    function animate() {
-        var canvas = document.getElementById("hackerEmpire");
-        // canvas.addEventListener('click', function() { location.href = "home.html"; }, false);
 
-        var ctx = canvas.getContext("2d");
-        // 全屏显示
-        canvas.height = window.innerHeight;
-        canvas.width = window.innerWidth;
-
-        var txt = "lk5201314gsskiss";
-        txt = txt.split("");
-        var font_size = 20;
-        var columns = canvas.width / font_size / 2;
-
-        // 每行要输出的数组
-        var drops = [];
-        for (var x = 0; x < columns; x++)
-            drops[x] = 0;
-
-        // 字符随机颜色
-        var color = new Array();
-        color[0] = "#57CE13";
-        color[1] = "#50BF7F";
-        color[2] = "#50BF7F";
-
-        // 函数成员，绘出字符
-        function draw() {
-            // 黑色背景，半透明显示
-            ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = color[parseInt(Math.random() * 100) % 3];
-            ctx.font = font_size + "px Haku";
-
-            // drops循环
-            for (var i = 0; i < drops.length; i++) {
-                // 随机打印字符
-                var char = txt[Math.floor(Math.random() * txt.length)];
-                ctx.fillText(char, i * font_size * 2, drops[i] * font_size);
-                if (drops[i] * font_size > canvas.height || Math.random() > 0.95)
-                    drops[i] = 0;
-                // Y坐标增加
-                drops[i]++;
-            }
-        }
-        setInterval(draw, 100);
+    canvas {
+        display: block;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
     }
-    </script>
+    </style>
 </head>
 
-<body onload="animate()">
-    <canvas id="hackerEmpire" style="display:block;" />
+<body>
+    <canvas></canvas>
+
+    <script>
+        (() => {
+            var canvas = document.querySelector('canvas')
+            var ctx = canvas.getContext("2d")
+            // canvas.addEventListener('click', function() { location.href = "home.html"; }, false);
+            canvas.height = window.innerHeight * devicePixelRatio
+            canvas.width = window.innerWidth * devicePixelRatio
+
+            // 随机取字符
+            var txt = "lk5201314gsskissyeahok233"
+            var font_size = 20 * devicePixelRatio
+            ctx.font = font_size + "px Haku"
+            const colors = ['#57CE13', '#50BF7F', '#50BF7F']
+            
+            // 列数
+            var columns = canvas.width / font_size / 2
+    
+            // 每行要输出的数组
+            var drops = []
+            for (var x = 0; x < columns; x++)
+                drops[x] = 0
+    
+            // 函数成员，绘出字符
+            function draw() {
+                // 黑色背景，半透明显示
+                ctx.fillStyle = "rgba(0, 0, 0, 0.1)"
+                ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+                // 随机字体颜色
+                ctx.fillStyle = colors[parseInt(Math.random() * 100) % 3]
+    
+                // drops循环
+                for (var i = 0; i < drops.length; i++) {
+                    // 随机打印字符
+                    var char = txt[Math.floor(Math.random() * txt.length)]
+                    ctx.fillText(char, i * font_size * 2, drops[i] * font_size)
+                    // 重新打印
+                    if (drops[i] * font_size > canvas.height || Math.random() > 0.95)
+                        drops[i] = 0
+                    // Y坐标增加
+                    drops[i]++
+                }
+            }
+
+            setInterval(draw, 100)
+        })()
+        </script>
 </body>
 
 </html>
