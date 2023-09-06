@@ -5,24 +5,19 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <!-- <meta http-equiv="refresh" content="10;url=home.html"></meta> -->
     <title>kiss</title>
-    <link rel="icon" href="/res/img/sk.png" />
+    <link rel="icon" href="/assets/img/sk.png" />
     <style type="text/css">
-    * {
-        margin: 0;
-        padding: 0;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+        }
 
-    @font-face {
-        font-family: "Haku";
-        src: url("../res/Haku.ttf");
-    }
-
-    canvas {
-        display: block;
-        width: 100vw;
-        height: 100vh;
-        background-color: #000;
-    }
+        canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+        }
     </style>
 </head>
 
@@ -33,24 +28,24 @@
         (() => {
             var canvas = document.querySelector('canvas')
             var ctx = canvas.getContext("2d")
-            // canvas.addEventListener('click', function() { location.href = "home.html"; }, false);
             canvas.height = window.innerHeight * devicePixelRatio
             canvas.width = window.innerWidth * devicePixelRatio
+            // canvas.addEventListener('click', function() { location.href = "home.html"; }, false);
 
             // 随机取字符
             var txt = "lk5201314gsskissyeahok233"
             var font_size = 20 * devicePixelRatio
-            ctx.font = font_size + "px Haku"
+            ctx.font = `bold ${font_size}px "Hannotate SC"`
             const colors = ['#57CE13', '#50BF7F', '#50BF7F']
-            
+
             // 列数
             var columns = canvas.width / font_size / 2
-    
+
             // 每行要输出的数组
             var drops = []
             for (var x = 0; x < columns; x++)
                 drops[x] = 0
-    
+
             // 函数成员，绘出字符
             function draw() {
                 // 黑色背景，半透明显示
@@ -59,7 +54,7 @@
 
                 // 随机字体颜色
                 ctx.fillStyle = colors[parseInt(Math.random() * 100) % 3]
-    
+
                 // drops循环
                 for (var i = 0; i < drops.length; i++) {
                     // 随机打印字符
@@ -75,7 +70,7 @@
 
             setInterval(draw, 100)
         })()
-        </script>
+    </script>
 </body>
 
 </html>
